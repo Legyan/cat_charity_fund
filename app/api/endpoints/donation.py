@@ -10,7 +10,6 @@ from app.models import User
 from app.schemas.donation import DonationCreate, DonationDB, DonationFullDB
 from app.services.investition import investing
 
-
 router = APIRouter()
 
 
@@ -23,7 +22,10 @@ router = APIRouter()
 async def get_all_donations(
     session: AsyncSession = Depends(get_async_session),
 ):
-    """Available only for superuser."""
+    """
+    Только для суперюзеров.\n
+    Возвращает список всех пожертвований.
+    """
     donations = await donation_crud.get_multi(session)
     return donations
 
@@ -37,7 +39,9 @@ async def get_my_donations(
     user: User = Depends(current_user),
     session: AsyncSession = Depends(get_async_session),
 ):
-    """Available only for registred user."""
+    """
+    Вернуть список пожертвований пользователя, выполняющего запрос.
+    """
     donations = await donation_crud.get_donations_by_user(
         user=user, session=session
     )
@@ -53,7 +57,7 @@ async def create_new_donation(
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_user),
 ):
-    """Available only for registred user."""
+    """Сделать пожертвование."""
     new_donation = await donation_crud.create(donation, session, user)
     await investing(new_donation, session)
     await session.refresh(new_donation)
