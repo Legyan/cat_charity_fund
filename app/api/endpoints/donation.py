@@ -18,6 +18,7 @@ router = APIRouter()
     '/',
     response_model=List[DonationFullDB],
     dependencies=[Depends(current_superuser)],
+    response_model_exclude_none=True,
 )
 async def get_all_donations(
     session: AsyncSession = Depends(get_async_session),
