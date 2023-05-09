@@ -1,8 +1,8 @@
-# QRKot
+# Cat Charity Fund
 Приложение благотворительного фонда поддержки котиков
 
 ### Описание:
-QRKot - это API для сбора средств, разработанное для поддержки различных целевых проектов, в том числе направленных на помощь популяции кошек. 
+Cat Charity Fund - это API для сбора средств, разработанное для поддержки различных целевых проектов, в том числе направленных на помощь популяции кошек. 
 
 Фонд может одновременно вести несколько целевых проектов. У каждого проекта есть название, описание и целевая сумма для сбора. Проекты финансируются по очереди, когда проект набирает необходимую сумму и закрывается, пожертвования начинают поступать в следующий проект.
 
@@ -19,7 +19,7 @@ QRKot - это API для сбора средств, разработанное 
 
 ### Запуск проекта
 
-Клонировать репозиторий и перейти в него в командной строке:
+1. Клонировать репозиторий и перейти в него в командной строке:
 
 ```
 git clone https://github.com/Legyan/cat_charity_fund.git
@@ -29,7 +29,7 @@ git clone https://github.com/Legyan/cat_charity_fund.git
 cd cat_charity_fund
 ```
 
-Cоздать и активировать виртуальное окружение:
+2. Cоздать и активировать виртуальное окружение:
 
 ```
 python3 -m venv venv
@@ -47,7 +47,7 @@ python3 -m venv venv
     source venv/scripts/activate
     ```
 
-Установить зависимости из файла requirements.txt:
+3. Установить зависимости из файла requirements.txt:
 
 ```
 python3 -m pip install --upgrade pip
@@ -57,7 +57,11 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Создать в корневой директории файл .env и заполнить его:
+4. Создать в корневой директории файл .env и заполнить его:
+
+```
+nano .env
+```
 
 ```
 APP_TITLE=Кошачий благотворительный фонд
@@ -67,13 +71,14 @@ SECRET=<YOUR_SECRET_WORD>
 FIRST_SUPERUSER_EMAIL=<SUPERUSER_EMAIL>
 FIRST_SUPERUSER_PASSWORD=<SUPERUSER_PASSWORD>
 ```
-Выполнить миграции:
+
+5. Выполнить миграции:
 
 ```
 alembic upgrade head
 ```
 
-Запустить приложение:
+6. Запустить приложение:
 
 ```
 uvicorn app.main:app
@@ -85,7 +90,7 @@ uvicorn app.main:app
 
 Запрос:
 ```
-GET /charity_project/
+GET /charity_project
 ```
 
 Ответ:
@@ -112,14 +117,13 @@ GET /charity_project/
       "fully_invested": false
     }
 ]
-
 ```
 
 #### Cоздание нового благотворительного проекта:
 
 Запрос:
 ```
-POST /charity_project/
+POST /charity_project
 {
   "name": "Помощь ветеринарной клинике",
   "description": "Сбор средств на покупку оборудования для ветеринарной клиники",
@@ -145,7 +149,7 @@ POST /charity_project/
 
 Запрос:
 ```
-POST /donation/
+POST /donation
 {
   "full_amount": 1500,
   "comment": "Спасите котиков!"
